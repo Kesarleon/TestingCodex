@@ -1,0 +1,9 @@
+zone_id,zone_name,demografia_score,movilidad_score,salud_score,competencia_score,riesgo_score,costos_score,observed_roi
+Z01,Valle de las Garzas,55.15,60.06,19.84,57.68,49.76,84.01,48.86
+Z02,Salagua,57.59,20.51,3.98,99.71,4.46,0.0,24.15
+Z03,Santiago,75.6,69.44,0.0,98.06,74.04,47.33,48.43
+Z04,Centro,31.57,62.36,100.0,15.84,40.87,9.82,50.88
+Z05,Tapeixtles,63.24,50.77,9.61,100.0,100.0,9.86,52.13
+Z06,El Colomo,15.41,6.82,51.75,61.49,22.94,77.49,42.44
+Z07,Jalipa,65.4,84.32,36.83,4.86,40.85,97.0,54.14
+Z08,Las Brisas,23.56,66.52,35.29,0.0,26.41,100.0,32.59

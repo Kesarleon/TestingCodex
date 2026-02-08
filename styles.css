@@ -1,0 +1,140 @@
+:root {
+  color-scheme: light;
+  --bg: #f6f8fc;
+  --surface: #ffffff;
+  --border: #dbe2ef;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --accent: #2563eb;
+  --accent-soft: #dbeafe;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.app-header {
+  padding: 2rem clamp(1rem, 4vw, 3rem) 1rem;
+}
+
+.app-header h1 {
+  margin: 0 0 0.5rem;
+}
+
+.app-header p {
+  margin: 0;
+  color: var(--muted);
+  max-width: 72ch;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  padding: 1rem clamp(1rem, 4vw, 3rem) 2rem;
+}
+
+@media (min-width: 960px) {
+  .layout {
+    grid-template-columns: 1.1fr 1.4fr;
+  }
+}
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1rem;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+}
+
+.hint {
+  color: var(--muted);
+  margin-top: 0;
+}
+
+.module-list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.module-card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.75rem;
+  align-items: start;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.75rem;
+}
+
+.module-card:has(input:checked) {
+  border-color: var(--accent);
+  background: #f8fbff;
+}
+
+.module-name {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.module-description {
+  margin: 0.25rem 0 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.active-modules {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.tag {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-radius: 999px;
+  padding: 0.3rem 0.7rem;
+  font-size: 0.85rem;
+}
+
+.zone-results {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.zone-card {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.75rem;
+}
+
+.zone-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.zone-name {
+  margin: 0;
+}
+
+.zone-score {
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.zone-breakdown {
+  margin: 0.5rem 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
