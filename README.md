@@ -1,32 +1,56 @@
 # Prototipo de app: Location Intelligence
 
-Este repositorio contiene un prototipo inicial de una app para priorizar zonas y decidir dónde abrir la siguiente sucursal.
+Este repositorio contiene un prototipo de Location Intelligence con dos capas:
 
-## Enfoque modular
+1. **Pipeline analítico** (datos simulados → wrangling → modelado → tablas finales).
+2. **Frontend modular** que consume tablas finales para rankear zonas candidatas.
 
-La app está diseñada por módulos para poder activar o desactivar capas de información según industria:
+## Caso de ejemplo
 
-- Demografía y poder adquisitivo
-- Movilidad y accesibilidad
-- Competencia y saturación
-- Riesgo urbano
-- Demanda digital
+El pipeline está parametrizado para un caso de negocio específico: **decidir la mejor zona de Manzanillo, Colima para abrir un hospital**.
 
-Cada módulo tiene un peso configurable y el motor de scoring recalcula en tiempo real el ranking de zonas candidatas.
+## Pipeline de datos
 
-## Estructura
+El pipeline vive en `pipeline/run_pipeline.py` y ejecuta estas etapas:
 
-- `src/modules/moduleCatalog.js`: catálogo de módulos y pesos.
-- `src/modules/zoneData.js`: datos mock de zonas.
-- `src/modules/scoringEngine.js`: lógica de cálculo del score.
-- `src/app.js`: render y conexión de UI con el motor.
+- **Carga de datos simulados** geográficos, demográficos, de salud y mercado (`data/raw_simulated/*.csv`).
+- **Data wrangling**: casteo de tipos, imputación por mediana y construcción de feature store (`data/intermediate/feature_store.csv`).
+- **Modelado**: entrenamiento de un modelo lineal simple sobre ROI sintético histórico para estimar rentabilidad por zona.
+- **Tablas finales** para backend/frontend (`data/final/*.csv` y `data/final/frontend_payload.json`).
+- **Exportación al frontend**: genera automáticamente `src/modules/moduleCatalog.js` y `src/modules/zoneData.js`.
 
-## Ejecutar localmente
-
-Puedes levantar un servidor estático simple:
+### Ejecutar pipeline
 
 ```bash
-python3 -m http.server 4173
+python3 pipeline/run_pipeline.py
+```
+
+## Frontend modular
+
+La app está diseñada por módulos para activar/desactivar capas de información:
+
+- Demografía objetivo
+- Movilidad y acceso
+- Demanda de salud
+- Competencia hospitalaria
+- Riesgo territorial
+- Costo operativo
+
+## Estructura principal
+
+- `pipeline/run_pipeline.py`: pipeline end-to-end.
+- `data/raw_simulated/`: fuentes simuladas.
+- `data/intermediate/`: tablas intermedias para validación.
+- `data/final/`: tablas finales que alimentan la aplicación.
+- `src/modules/moduleCatalog.js`: catálogo de módulos (generado por pipeline).
+- `src/modules/zoneData.js`: zonas y factores por módulo (generado por pipeline).
+- `src/modules/scoringEngine.js`: lógica de score interactivo en frontend.
+- `src/app.js`: render y conexión de UI.
+
+## Ejecutar frontend
+
+```bash
+python3 -m http.server 4173 --bind 0.0.0.0
 ```
 
 Luego abre `http://localhost:4173`.

@@ -3,6 +3,7 @@ export function rankZones(zones, activeModules) {
     return zones.map((zone) => ({
       name: zone.name,
       score: 0,
+      predictedRoi: zone.predictedRoi,
       breakdown: "Activa al menos un módulo para calcular el score.",
     }));
   }
@@ -23,6 +24,7 @@ export function rankZones(zones, activeModules) {
       return {
         name: zone.name,
         score: Math.round(weightedScore / totalWeight),
+        predictedRoi: zone.predictedRoi,
         breakdown: details.join(" · "),
       };
     })

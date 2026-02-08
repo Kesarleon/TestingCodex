@@ -1,37 +1,38 @@
 export const modules = [
   {
     id: "demografia",
-    name: "Demografía y poder adquisitivo",
-    description:
-      "Analiza densidad poblacional, edad objetivo e ingresos del área.",
-    weight: 0.27,
+    name: "Demografía objetivo",
+    description: "Población objetivo, densidad e ingreso disponible.",
+    weight: 0.2,
   },
   {
     id: "movilidad",
-    name: "Movilidad y accesibilidad",
-    description:
-      "Evalúa flujo peatonal, conectividad vial y tiempo de llegada.",
+    name: "Movilidad y acceso",
+    description: "Conectividad vial, tiempos de traslado y flujo diario.",
+    weight: 0.17,
+  },
+  {
+    id: "salud",
+    name: "Demanda de salud",
+    description: "Incidencia crónica, urgencias y presión de atención médica.",
     weight: 0.24,
   },
   {
     id: "competencia",
-    name: "Competencia y saturación",
-    description:
-      "Mide presencia de competidores directos y oferta complementaria.",
-    weight: 0.23,
+    name: "Competencia hospitalaria",
+    description: "Saturación de camas y cercanía de oferta existente.",
+    weight: 0.15,
   },
   {
     id: "riesgo",
-    name: "Riesgo urbano",
-    description:
-      "Incluye seguridad, regulación y estabilidad operativa de la zona.",
-    weight: 0.13,
+    name: "Riesgo territorial",
+    description: "Seguridad, inundaciones y estabilidad de operación.",
+    weight: 0.12,
   },
   {
-    id: "digital",
-    name: "Demanda digital",
-    description:
-      "Considera búsquedas locales, delivery y comportamiento omnicanal.",
-    weight: 0.13,
+    id: "costos",
+    name: "Costo operativo",
+    description: "Costo de suelo, renta y gasto logístico estimado.",
+    weight: 0.12,
   },
 ];

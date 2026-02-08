@@ -54,6 +54,7 @@ function renderResults() {
           <span class="zone-score">${zone.score}/100</span>
         </div>
         <p class="zone-breakdown">${zone.breakdown}</p>
+        <p class="zone-breakdown"><strong>ROI estimado:</strong> ${zone.predictedRoi ?? "N/D"}%</p>
       </article>`
     )
     .join("");
