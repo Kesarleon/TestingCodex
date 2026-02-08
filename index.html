@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Location Intelligence Lab</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <h1>Prototipo · Location Intelligence</h1>
+      <p>
+        Selecciona módulos de datos para estimar la mejor zona para tu próxima
+        sucursal.
+      </p>
+    </header>
+
+    <main class="layout">
+      <section class="panel modules-panel">
+        <h2>Módulos de información</h2>
+        <p class="hint">Activa o desactiva capas según industria o caso de uso.</p>
+        <div id="moduleList" class="module-list"></div>
+      </section>
+
+      <section class="panel score-panel">
+        <h2>Score de zonas candidatas</h2>
+        <div id="activeModules" class="active-modules"></div>
+        <div id="zoneResults" class="zone-results"></div>
+      </section>
+    </main>
+
+    <template id="moduleTemplate">
+      <label class="module-card">
+        <input type="checkbox" class="module-toggle" />
+        <div>
+          <h3 class="module-name"></h3>
+          <p class="module-description"></p>
+        </div>
+      </label>
+    </template>
+
+    <script type="module" src="src/app.js"></script>
+  </body>
+</html>
