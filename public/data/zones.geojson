@@ -1,0 +1,20 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": { "id": "z1", "name": "Salagua" },
+      "geometry": { "type": "Polygon", "coordinates": [[[-104.365,19.135],[-104.335,19.135],[-104.335,19.11],[-104.365,19.11],[-104.365,19.135]]] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "id": "z2", "name": "Santiago" },
+      "geometry": { "type": "Polygon", "coordinates": [[[-104.39,19.115],[-104.35,19.115],[-104.35,19.085],[-104.39,19.085],[-104.39,19.115]]] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "id": "z3", "name": "Centro" },
+      "geometry": { "type": "Polygon", "coordinates": [[[-104.34,19.075],[-104.305,19.075],[-104.305,19.04],[-104.34,19.04],[-104.34,19.075]]] }
+    }
+  ]
+}

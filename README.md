@@ -1,56 +1,81 @@
-# Prototipo de app: Location Intelligence
+# Location Intelligence SaaS Starter (Hexagonal + Next.js)
 
-Este repositorio contiene un prototipo de Location Intelligence con dos capas:
+Base funcional de una plataforma de Location Intelligence empresarial para evaluar ubicaciones de nuevas sucursales con scoring multi-criterio geoespacial.
 
-1. **Pipeline analítico** (datos simulados → wrangling → modelado → tablas finales).
-2. **Frontend modular** que consume tablas finales para rankear zonas candidatas.
+## Stack
 
-## Caso de ejemplo
+- Next.js 14 (App Router)
+- TypeScript
+- Mapbox GL JS
+- Zustand
+- Tailwind CSS
+- Arquitectura Hexagonal (Ports & Adapters)
+- Datos simulados: GeoJSON + JSON
 
-El pipeline está parametrizado para un caso de negocio específico: **decidir la mejor zona de Manzanillo, Colima para abrir un hospital**.
+## Arquitectura
 
-## Pipeline de datos
-
-El pipeline vive en `pipeline/run_pipeline.py` y ejecuta estas etapas:
-
-- **Carga de datos simulados** geográficos, demográficos, de salud y mercado (`data/raw_simulated/*.csv`).
-- **Data wrangling**: casteo de tipos, imputación por mediana y construcción de feature store (`data/intermediate/feature_store.csv`).
-- **Modelado**: entrenamiento de un modelo lineal simple sobre ROI sintético histórico para estimar rentabilidad por zona.
-- **Tablas finales** para backend/frontend (`data/final/*.csv` y `data/final/frontend_payload.json`).
-- **Exportación al frontend**: genera automáticamente `src/modules/moduleCatalog.js` y `src/modules/zoneData.js`.
-
-### Ejecutar pipeline
-
-```bash
-python3 pipeline/run_pipeline.py
+```text
+/domain
+  /entities
+  /services
+  /ports
+/application
+  /use-cases
+/infrastructure
+  /mapbox
+  /repositories
+/modules
+  /demografia
+  /competencia
+  economia.ts
+/app
+  /dashboard
+  /components
 ```
 
-## Frontend modular
+### Principios aplicados
 
-La app está diseñada por módulos para activar/desactivar capas de información:
+- **Dominio puro**: scoring y lógica de negocio desacoplados de UI y Mapbox.
+- **Casos de uso**: `AnalyzeZone`, `CompareLocations`, `CalculateScore` orquestan dominio + puertos.
+- **Adapters**: repositorios mock y adapter de Mapbox intercambiables por implementaciones productivas.
+- **Módulos plug-in**: cada módulo analítico exporta su propia configuración y peso.
 
-- Demografía objetivo
-- Movilidad y acceso
-- Demanda de salud
-- Competencia hospitalaria
-- Riesgo territorial
-- Costo operativo
+## Modelo de scoring (implementado en dominio)
 
-## Estructura principal
+1. Normalización Min–Max por indicador (dirección positiva/negativa).
+2. Score por módulo = sum(normalized * indicator.weight).
+3. Score total = sum(moduleScore * module.weight).
+4. Normalización final 0–100.
+5. Clasificación:
+   - 80–100: Excelente
+   - 60–79: Alta
+   - 40–59: Media
+   - < 40: Riesgosa
 
-- `pipeline/run_pipeline.py`: pipeline end-to-end.
-- `data/raw_simulated/`: fuentes simuladas.
-- `data/intermediate/`: tablas intermedias para validación.
-- `data/final/`: tablas finales que alimentan la aplicación.
-- `src/modules/moduleCatalog.js`: catálogo de módulos (generado por pipeline).
-- `src/modules/zoneData.js`: zonas y factores por módulo (generado por pipeline).
-- `src/modules/scoringEngine.js`: lógica de score interactivo en frontend.
-- `src/app.js`: render y conexión de UI.
+## Dataset demo
 
-## Ejecutar frontend
+Caso: ubicación de hospital en Manzanillo, Colima.
+
+- `public/data/zones.geojson`: polígonos de zonas.
+- `public/data/buffers.geojson`: buffers mock 5, 10 y 15 min por zona.
+- `infrastructure/repositories/mockData.ts`: indicadores simulados por zona y módulo.
+
+## Ejecutar
 
 ```bash
-python3 -m http.server 4173 --bind 0.0.0.0
+npm install
+npm run dev
 ```
 
-Luego abre `http://localhost:4173`.
+Configura token de mapbox en `.env.local`:
+
+```bash
+NEXT_PUBLIC_MAPBOX_TOKEN=tu_token
+```
+
+## Escalamiento a producción
+
+- Sustituir `MockIndicatorRepository` por adapters a PostGIS/BigQuery.
+- Sustituir `MockGeoRepository` por vector tiles / servicios geoespaciales.
+- Versionar módulos por industria y habilitar feature flags por tenant.
+- Persistir escenarios y auditoría de decisiones para trazabilidad empresarial.
