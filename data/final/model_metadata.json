@@ -1,0 +1,12 @@
+{
+  "target": "predicted_roi",
+  "intercept": 12.357162,
+  "features": {
+    "demografia_score": 0.143405,
+    "movilidad_score": 0.217147,
+    "salud_score": 0.082799,
+    "competencia_score": -0.036756,
+    "riesgo_score": 0.24681,
+    "costos_score": 0.032691
+  }
+}
